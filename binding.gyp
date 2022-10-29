@@ -6,7 +6,6 @@
       "cflags_cc!": [ "-fno-exceptions" ],
       "sources": [
         "./src/cookie-info-manager.cpp",
-        "./src/greeting.cpp",
         "./src/index.cpp"
       ],
       "include_dirs": [
