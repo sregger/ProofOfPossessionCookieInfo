@@ -1,9 +1,31 @@
-const greetModule = require('./build/Release/cookie-info-manager.node') 
+const os = require('os');
+const greetModule = require('./build/Release/cookie-info-manager.node')
 
-console.log(`export ${greetModule}`)
-console.log(`greetModule.greetHello() : ${greetModule.greetHello("John")}`)
+function notWindowsSoDoNothing(url) {
+    return "";
+}
 
-const addon = require('bindings')('cookie-info-manager');
-exports.hello = addon.greetHello;
+if (os.type() === 'Windows_NT') {
+    const cookieInfoManager = require('bindings')('cookie-info-manager');
+    exports.getCookieInfoForUri = cookieInfoManager.getCookieInfoForUri;
 
-console.log(`addon.getCookieInfoForUri("Tim") : ${addon.getCookieInfoForUri("Tim")}`)
+    const urls = [
+        "Upper Case",
+        "lower case",
+        "Tim",
+        "tim",
+        "https://www.google.com/",
+        "login.microsoftonline.com",
+        "https://login.microsoftonline.com/2a789914-be8c-49c8-9f76-a78c776ba89d/saml2",
+        "https://login.microsoftonline.com/common/GetCredentialType?mkt=en-US",
+        "https://login.microsoftonline.com/2a789914-be8c-49c8-9f76-a78c776ba89d/login"
+    ]
+
+    for (var url of urls) {
+        const value = cookieInfoManager.getCookieInfoForUri("https://login.microsoftonline.com/2a789914-be8c-49c8-9f76-a78c776ba89d/saml2")
+        console.log(`cookieInfoManager.getCookieInfoForUri("${url}") : ${value}\n`)
+    }
+}
+else {
+    exports.getCookieInfoForUri = notWindowsSoDoNothing;
+}

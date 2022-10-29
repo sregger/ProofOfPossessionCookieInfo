@@ -99,6 +99,7 @@ std::string getCookieInfoForUri( std::string uri ) {
             cout << "SUCCEEDED(cookieInfoResult) with count " << cookieInfoCount << endl;
             for (DWORD i = 0; i < cookieInfoCount; i++)
             {
+                cout << "for name: " << cookieInfoPtr[i].name << " data: " << cookieInfoPtr[i].data << endl;
                 if (cookieInfoPtr[i].name && cookieInfoPtr[i].data)
                 {
                     CookieInfo cookie;

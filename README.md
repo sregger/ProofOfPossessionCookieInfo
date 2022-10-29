@@ -14,3 +14,15 @@ Exposes the `ProofOfPossessionCookieInfo.h` functionality to JavaScript.
 Based on https://medium.com/jspoint/a-simple-guide-to-load-c-c-code-into-node-js-javascript-applications-3fcccf54fd32
 
 Calls https://learn.microsoft.com/en-us/windows/win32/api/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager-getcookieinfoforuri
+
+## How to build
+
+### C++ code
+
+> node-gyp rebuild
+
+### Executable
+
+> npm install pkg --global
+
+> pkg index.js
