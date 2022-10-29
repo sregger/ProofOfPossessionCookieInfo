@@ -12,7 +12,7 @@ Napi::String greetHello(const Napi::CallbackInfo& info) {
     return Napi::String::New(env, result);
 }
 
-Napi::String getCookieInfoForUri2(const Napi::CallbackInfo& info) {
+Napi::String getCookieInfo(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     std::string user = (std::string) info[0].ToString();
@@ -29,7 +29,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
         Napi::String::New(env, "getCookieInfoForUri"),
-        Napi::Function::New(env, getCookieInfoForUri2)
+        Napi::Function::New(env, getCookieInfo)
     );
 
     return exports;
