@@ -22,8 +22,10 @@ if (os.type() === 'Windows_NT') {
     ]
 
     for (var url of urls) {
-        const value = cookieInfoManager.getCookieInfoForUri("https://login.microsoftonline.com/2a789914-be8c-49c8-9f76-a78c776ba89d/saml2")
-        console.log(`cookieInfoManager.getCookieInfoForUri("${url}") : ${value}\n`)
+        const cookies = cookieInfoManager.getCookieInfoForUri("https://login.microsoftonline.com/2a789914-be8c-49c8-9f76-a78c776ba89d/saml2")
+        for (const cookie of cookies) {
+            console.log(`cookieInfoManager.getCookieInfoForUri("${url}") : ${cookie.name} - ${cookie.data}\n`)
+        }
     }
 }
 else {

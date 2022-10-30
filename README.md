@@ -1,6 +1,8 @@
 ## Description
 
-Exposes the `ProofOfPossessionCookieInfo.h` functionality to JavaScript.
+Exposes the [ProofOfPossessionCookieInfo.h](https://learn.microsoft.com/en-us/windows/win32/api/proofofpossessioncookieinfo/) functionality to JavaScript via [N-API](https://nodejs.org/api/n-api.html).
+
+Support for Azure Conditional Access
 
 ## Requirements
 
@@ -26,3 +28,5 @@ Calls https://learn.microsoft.com/en-us/windows/win32/api/proofofpossessioncooki
 > npm install pkg --global
 
 > pkg index.js
+
+https://medium.com/jspoint/how-to-create-an-executable-exe-file-from-javascript-code-using-node-js-45154ba4de20

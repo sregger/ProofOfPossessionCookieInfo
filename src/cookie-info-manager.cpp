@@ -10,13 +10,6 @@
 
 using namespace std;
 
-struct CookieInfo {
-    std::string name;
-    std::string data;
-    std::string flags;
-    std::string p3pHeader;
-};
-
 std::wstring toWString(const std::string& input)
 {
     // Convert UTF-8 to UTF-16
@@ -66,16 +59,12 @@ std::vector<std::string> split(const std::string& input, const int subLength)
     return result;
 }
 
-std::string getCookieInfoForUri( std::string uri ) {
+bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies ) {
     cout << "Called getCookieInfoForUri" << endl;
 
     CoInitialize(nullptr);
 
     cout << "Called CoInitialize(nullptr)" << endl;
-
-
-    std::string deviceId = "Nothing";
-    std::vector<CookieInfo> cookies = {};
 
     DWORD cookieInfoCount = 0;
     DWORD* cookieInfoCountPtr = &cookieInfoCount;
@@ -89,6 +78,8 @@ std::string getCookieInfoForUri( std::string uri ) {
 
     cout << "HRESULT " << hResult << endl;
 
+    bool isSuccess = false;
+
     if (SUCCEEDED(hResult))
     {
         HRESULT cookieInfoResult = cookieInfoManager->GetCookieInfoForUri(toWString(uri).c_str(), cookieInfoCountPtr, cookieInfoPtrPtr);
@@ -99,14 +90,12 @@ std::string getCookieInfoForUri( std::string uri ) {
             cout << "SUCCEEDED(cookieInfoResult) with count " << cookieInfoCount << endl;
             for (DWORD i = 0; i < cookieInfoCount; i++)
             {
-                cout << "for name: " << cookieInfoPtr[i].name << " data: " << cookieInfoPtr[i].data << endl;
+                cout << "for name: " << cookieInfoPtr[i].name << " data: " << cookieInfoPtr[i].data << " flags: " << cookieInfoPtr[i].flags << " p3pHeader: " << cookieInfoPtr[i].p3pHeader << endl;
                 if (cookieInfoPtr[i].name && cookieInfoPtr[i].data)
                 {
                     CookieInfo cookie;
                     cookie.name = CW2A(cookieInfoPtr[i].name);
                     cookie.data = CW2A(cookieInfoPtr[i].data);
-
-                    deviceId = cookie.name + " - " + cookie.data;
 
                     // Splitting the data fetched by ;
                     // The data we receive is formatted as "<PRT string>; path=/; domain=login.microsoftonline.com; secure; httponly"
@@ -121,10 +110,15 @@ std::string getCookieInfoForUri( std::string uri ) {
             }
         }
 
+        if (cookies.size())
+        {
+            isSuccess = true;
+        }
+
         cookieInfoManager->Release();
     }
 
     CoUninitialize();
 
-    return deviceId;
+    return isSuccess;
 }
