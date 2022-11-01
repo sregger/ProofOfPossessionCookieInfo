@@ -1,12 +1,13 @@
 {
   "name": "proof-of-possession-cookie-info",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Exposes the native `GetCookieInfoForUri(..)` function from the ProofOfPossessionCookieInfo.h to JavaScript via N-API",
   "author": "Shane Gannon (sgannon200@gmail.com)",
   "license": "ISC",
   "homepage": "https://github.com/sregger/ProofOfPossessionCookieInfo",
   "keywords": [
-    "azure",
+    "Azure",
+    "AD",
     "IDP",
     "SSO",
     "ProofOfPossessionCookieInfo",
