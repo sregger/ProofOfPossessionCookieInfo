@@ -13,7 +13,7 @@ Napi::Array getCookieInfo(const Napi::CallbackInfo& info) {
 
     Napi::Array array = Napi::Array::New(info.Env(), cookies.size());
 
-    int i = 0;
+    uint32_t i = 0;
     for (const auto cookie : cookies) {
         Napi::Object object = Napi::Object::New( env );
         object.Set("name", Napi::String::New( env, cookie.name ));
