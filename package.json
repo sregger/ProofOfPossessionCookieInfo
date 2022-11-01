@@ -1,7 +1,7 @@
 {
-  "name": "cookie-info-manager",
+  "name": "proof-of-possession-cookie-info",
   "version": "0.0.1",
-  "description": "",
+  "description": "Exposes the native `GetCookieInfoForUri(..)` function from the ProofOfPossessionCookieInfo.h to JavaScript via N-API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
