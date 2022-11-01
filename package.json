@@ -6,9 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sregger/ProofOfPossessionCookieInfo.git"
+  },
+  "keywords": [
+    "azure",
+    "IDP",
+    "SSO",
+    "ProofOfPossessionCookieInfo",
+    "GetCookieInfoForUri"
+  ],
   "author": "Shane Gannon (sgannon200@gmail.com)",
   "license": "ISC",
+  "homepage": "https://github.com/sregger/ProofOfPossessionCookieInfo",
   "dependencies": {
     "bindings": "^1.5.0",
     "node-addon-api": "^5.0.0"
