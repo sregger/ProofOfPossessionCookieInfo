@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <ProofOfPossessionCookieInfo.h>
 #include <stringapiset.h>
@@ -24,39 +25,18 @@ std::wstring toWString(const std::string& input)
     return std::wstring();
 }
 
-bool isSpace(char c)
+std::vector<std::string> splitPRT(const std::string& input)
 {
-    switch (c)
-    {
-        case ' ':
-        case '\t':
-        case '\n':
-        case '\v':
-        case '\f':
-        case '\r':
-            return true;
-        default:
-            return false;
-    }
-}
+    std::stringstream stream(input);
+    std::string segment;
+    std::vector<std::string> seglist;
 
-std::vector<std::string> split(const std::string& input, const int subLength)
-{
-    std::vector<std::string> result;
-    if (input.empty())
+    while(std::getline(stream, segment, ';'))
     {
-        return result;
+       seglist.push_back(segment);
     }
-    auto subStrCount = input.length()/subLength;
-    for (auto i = 0; i < subStrCount; i++)
-    {
-        result.push_back(input.substr(i * subLength, subLength));
-    }
-    if (input.length() % subLength != 0)
-    {
-        result.push_back(input.substr(subLength * subStrCount));
-    }
-    return result;
+
+    return seglist;
 }
 
 bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies ) {
@@ -99,13 +79,15 @@ bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies 
 
                     // Splitting the data fetched by ;
                     // The data we receive is formatted as "<PRT string>; path=/; domain=login.microsoftonline.com; secure; httponly"
-                    const auto splitData = split(cookie.data, ';');
+                    const auto splitData = splitPRT(cookie.data);
                     cookie.data = splitData.size() > 1 ? splitData[0] : cookie.data;
 
                     if (!cookie.data.empty())
                     {
                         cookies.push_back(cookie);
                     }
+
+                    cout << "cookie.name: " << cookie.name << " cookie.data: " << cookie.data << " cookie.flags: " << cookie.flags << " cookie.p3pHeader: " << cookie.p3pHeader << endl;
                 }
             }
         }
