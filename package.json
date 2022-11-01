@@ -2,6 +2,16 @@
   "name": "proof-of-possession-cookie-info",
   "version": "0.0.1",
   "description": "Exposes the native `GetCookieInfoForUri(..)` function from the ProofOfPossessionCookieInfo.h to JavaScript via N-API",
+  "author": "Shane Gannon (sgannon200@gmail.com)",
+  "license": "ISC",
+  "homepage": "https://github.com/sregger/ProofOfPossessionCookieInfo",
+  "keywords": [
+    "azure",
+    "IDP",
+    "SSO",
+    "ProofOfPossessionCookieInfo",
+    "GetCookieInfoForUri"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,16 +20,10 @@
     "type": "git",
     "url": "git@github.com:sregger/ProofOfPossessionCookieInfo.git"
   },
-  "keywords": [
-    "azure",
-    "IDP",
-    "SSO",
-    "ProofOfPossessionCookieInfo",
-    "GetCookieInfoForUri"
+  "files": [
+    "!build",
+    "!*.exe"
   ],
-  "author": "Shane Gannon (sgannon200@gmail.com)",
-  "license": "ISC",
-  "homepage": "https://github.com/sregger/ProofOfPossessionCookieInfo",
   "dependencies": {
     "bindings": "^1.5.0",
     "node-addon-api": "^5.0.0"
