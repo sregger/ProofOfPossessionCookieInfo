@@ -13,6 +13,9 @@ Napi::Array getCookieInfo(const Napi::CallbackInfo& info) {
 
     Napi::Array array = Napi::Array::New(info.Env(), cookies.size());
 
+    // When using an `int` and building an electron installer it produced an error
+    // error C2666: 'Napi::Object::operator []': 3 overloads have similar conversions
+    // Switching to `uint32_t` as a workaround.
     uint32_t i = 0;
     for (const auto cookie : cookies) {
         Napi::Object object = Napi::Object::New( env );
