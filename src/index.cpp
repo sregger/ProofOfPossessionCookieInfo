@@ -1,5 +1,6 @@
 #include <napi.h>
 #include <string>
+#include <vector>
 #include "cookie-info-manager.h"
 
 Napi::Array getCookieInfo(const Napi::CallbackInfo& info) {

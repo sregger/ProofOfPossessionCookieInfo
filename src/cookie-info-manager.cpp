@@ -1,11 +1,8 @@
 #include <windows.h>
-#include <iostream>
-#include <algorithm>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <ProofOfPossessionCookieInfo.h>
-#include <stringapiset.h>
 #include <atlbase.h>
 #include "cookie-info-manager.h"
 
@@ -40,11 +37,7 @@ std::vector<std::string> splitPRT(const std::string& input)
 }
 
 bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies ) {
-    cout << "Called getCookieInfoForUri" << endl;
-
     CoInitialize(nullptr);
-
-    cout << "Called CoInitialize(nullptr)" << endl;
 
     DWORD cookieInfoCount = 0;
     DWORD* cookieInfoCountPtr = &cookieInfoCount;
@@ -56,21 +49,16 @@ bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies 
     IProofOfPossessionCookieInfoManager* cookieInfoManager = NULL;
     HRESULT hResult = CoCreateInstance(__uuidof(ProofOfPossessionCookieInfoManager), NULL, CLSCTX_INPROC_SERVER, __uuidof(IProofOfPossessionCookieInfoManager), (void**)&cookieInfoManager);
 
-    cout << "HRESULT " << hResult << endl;
-
     bool isSuccess = false;
 
     if (SUCCEEDED(hResult))
     {
         HRESULT cookieInfoResult = cookieInfoManager->GetCookieInfoForUri(toWString(uri).c_str(), cookieInfoCountPtr, cookieInfoPtrPtr);
-        cout << "SUCCEEDED(hResult) cookieInfoResult " << cookieInfoResult << endl;
 
         if (SUCCEEDED(cookieInfoResult) && cookieInfoPtrPtr && *cookieInfoPtrPtr)
         {
-            cout << "SUCCEEDED(cookieInfoResult) with count " << cookieInfoCount << endl;
             for (DWORD i = 0; i < cookieInfoCount; i++)
             {
-                cout << "for name: " << cookieInfoPtr[i].name << " data: " << cookieInfoPtr[i].data << " flags: " << cookieInfoPtr[i].flags << " p3pHeader: " << cookieInfoPtr[i].p3pHeader << endl;
                 if (cookieInfoPtr[i].name && cookieInfoPtr[i].data)
                 {
                     CookieInfo cookie;
@@ -86,8 +74,6 @@ bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies 
                     {
                         cookies.push_back(cookie);
                     }
-
-                    cout << "cookie.name: " << cookie.name << " cookie.data: " << cookie.data << " cookie.flags: " << cookie.flags << " cookie.p3pHeader: " << cookie.p3pHeader << endl;
                 }
             }
         }
