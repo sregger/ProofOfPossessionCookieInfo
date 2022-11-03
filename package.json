@@ -1,6 +1,6 @@
 {
   "name": "proof-of-possession-cookie-info",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Exposes the native `GetCookieInfoForUri(..)` function from the ProofOfPossessionCookieInfo.h to JavaScript via N-API",
   "author": "Shane Gannon (sgannon200@gmail.com)",
   "license": "ISC",
