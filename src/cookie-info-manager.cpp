@@ -3,7 +3,6 @@
 #include <sstream>
 #include <vector>
 #include <ProofOfPossessionCookieInfo.h>
-#include <atlbase.h>
 #include "cookie-info-manager.h"
 
 using namespace std;
@@ -20,6 +19,18 @@ std::wstring toWString(const std::string& input)
     }
 
     return std::wstring();
+}
+
+std::string toString(const std::wstring& input)
+{
+    auto utf16len = static_cast<int>(wcslen(&input[0]));
+    int utf8len = WideCharToMultiByte(CP_UTF8, 0, &input[0], utf16len, nullptr, 0, nullptr, nullptr);
+
+    std::vector<char> buffer;
+    buffer.resize(utf8len + 1);
+
+    WideCharToMultiByte(CP_UTF8, 0, &input[0], utf16len, &buffer[0], utf8len, nullptr, nullptr);
+    return buffer.data();
 }
 
 std::vector<std::string> splitPRT(const std::string& input)
@@ -62,8 +73,8 @@ bool getCookieInfoForUri( std::string uri, OUT std::vector<CookieInfo>& cookies 
                 if (cookieInfoPtr[i].name && cookieInfoPtr[i].data)
                 {
                     CookieInfo cookie;
-                    cookie.name = CW2A(cookieInfoPtr[i].name);
-                    cookie.data = CW2A(cookieInfoPtr[i].data);
+                    cookie.name = toString(cookieInfoPtr[i].name);
+                    cookie.data = toString(cookieInfoPtr[i].data);
 
                     // Splitting the data fetched by ;
                     // The data we receive is formatted as "<PRT string>; path=/; domain=login.microsoftonline.com; secure; httponly"

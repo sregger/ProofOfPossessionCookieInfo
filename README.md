@@ -26,7 +26,6 @@ This function is Windows specific but the module includes a "do nothing" impleme
 * NodeJS 16
 * Python 3
 * Visual Studio
-* ATL libraries for altbase.h
 
 ## How to build
 
