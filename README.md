@@ -53,6 +53,10 @@ but it's a good practice to use `bindings` instead.
     ....
     const view = new BrowserView({....})
     ....
+    // The token is security critical and should only be sent to addresses matching this pattern
+    const filter = {
+      urls: ["*://login.microsoftonline.com/*"]
+    }
     view.webContents.session.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
         const headers = proofOfPossessionCookieInfo.getCookieInfoForUri(details.url)
 
